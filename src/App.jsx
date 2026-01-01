@@ -109,6 +109,16 @@ export default function InteractiveResume() {
       title: "Булінг і Емпатія. Стоп булінг. Протидія булінгу в шкільному середовищі",
       icon: Smile,
       color: "from-green-500 to-emerald-500"
+    },
+      {
+      title: "Альтернатива згубним звичкам. На шляху до вільного і наповненого життя",
+      icon:  Sparkles,
+      color: "from-red-500 to-emerald-500"
+    },
+      {
+      title: "Скажи "Ні" залежності від Інтернету!",
+      icon:  Shield,
+      color: "from-pink-500 to-emerald-500"
     }
   ];
 
@@ -390,7 +400,7 @@ export default function InteractiveResume() {
           <div className="flex items-center justify-center gap-3 mb-6 animate-slide-in-up" style={{ animationDelay: '0.2s' }}>
             <Heart className="text-pink-400 animate-pulse" size={28} />
             <p className="text-2xl md:text-3xl text-purple-300">
-              Психолог | Консультант
+              Клінічний Психолог/ Консультант в методі Позитивної Психотерапії
             </p>
             <Sparkles className="text-yellow-400 animate-pulse" size={28} />
           </div>
