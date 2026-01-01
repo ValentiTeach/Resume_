@@ -116,7 +116,7 @@ export default function InteractiveResume() {
       color: "from-red-500 to-emerald-500"
     },
       {
-      title: "Скажи "Ні" залежності від Інтернету!",
+      title: "Скажи «Ні» залежності від Інтернету!",
       icon:  Shield,
       color: "from-pink-500 to-emerald-500"
     }
