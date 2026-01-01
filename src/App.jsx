@@ -281,6 +281,7 @@ export default function InteractiveResume() {
         .stagger-animation.visible > *:nth-child(5) { animation: slideInUp 0.6s ease-out 0.5s forwards; }
         .stagger-animation.visible > *:nth-child(6) { animation: slideInUp 0.6s ease-out 0.6s forwards; }
         .stagger-animation.visible > *:nth-child(7) { animation: slideInUp 0.6s ease-out 0.7s forwards; }
+        .stagger-animation.visible > *:nth-child(8) { animation: slideInUp 0.6s ease-out 0.8s forwards; }
         
         .parallax {
           transition: transform 0.5s ease-out;
