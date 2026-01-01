@@ -300,8 +300,19 @@ export default function InteractiveResume() {
       <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-slate-900/95 backdrop-blur-lg shadow-lg shadow-purple-500/10' : 'bg-transparent'}`}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3 group cursor-pointer">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-xl transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
-              ВН
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 p-0.5 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 overflow-hidden">
+              <img 
+                src="/photo/MainPhoto.jpg" 
+                alt="ВН" 
+                className="w-full h-full rounded-full object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
+              />
+              <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center font-bold text-xl" style={{ display: 'none' }}>
+                ВН
+              </div>
             </div>
             <Brain className="text-purple-400 group-hover:animate-pulse" size={24} />
           </div>
@@ -355,8 +366,19 @@ export default function InteractiveResume() {
           <div className="mb-8 relative inline-block animate-scale-in">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full blur-xl animate-pulse"></div>
             <div className="w-40 h-40 rounded-full bg-gradient-to-br from-purple-400 to-pink-600 p-1 relative hover:scale-110 transition-all duration-700 pulse-glow">
-              <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
-                <Brain size={80} className="text-purple-400 floating-icon" />
+              <div className="w-full h-full rounded-full overflow-hidden bg-slate-900">
+                <img 
+                  src="/photo/MainPhoto.jpg" 
+                  alt="Вікторія Носків" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="w-full h-full flex items-center justify-center" style={{ display: 'none' }}>
+                  <Brain size={80} className="text-purple-400 floating-icon" />
+                </div>
               </div>
             </div>
           </div>
