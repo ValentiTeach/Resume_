@@ -119,7 +119,7 @@ export default function InteractiveResume() {
       title: "Скажи «Ні» залежності від Інтернету!",
       icon:  Shield,
       color: "from-pink-500 to-emerald-500"
-    }
+    },
   ];
 
   const courses = [
