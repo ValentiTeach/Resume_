@@ -158,7 +158,7 @@ export default function InteractiveResume() {
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 backdrop-blur-lg shadow-lg shadow-purple-500/10' : 'bg-transparent'}`}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3 group cursor-pointer">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-xl transform group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold text-xl transform group-hover:scale-110 transition-transform duration-500">
               ВН
             </div>
             <Brain className="text-purple-400 group-hover:animate-pulse" size={24} />
@@ -208,7 +208,7 @@ export default function InteractiveResume() {
         <div className="text-center max-w-4xl mx-auto relative z-10">
           <div className="mb-8 relative inline-block">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full blur-xl animate-pulse"></div>
-            <div className="w-40 h-40 rounded-full bg-gradient-to-br from-purple-400 to-pink-600 p-1 relative transform hover:scale-110 transition-transform duration-500">
+            <div className="w-40 h-40 rounded-full bg-gradient-to-br from-purple-400 to-pink-600 p-1 relative transform hover:scale-110 transition-transform duration-700">
               <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
                 <Brain size={80} className="text-purple-400 animate-float" />
               </div>
@@ -233,11 +233,11 @@ export default function InteractiveResume() {
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center mb-12">
-            <a href="mailto:viktoriia.noskiv@gmail.com" className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50">
+            <a href="mailto:viktoriia.noskiv@gmail.com" className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50">
               <Mail size={20} />
               Написати
             </a>
-            <a href="tel:0989425285" className="flex items-center gap-2 bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/50">
+            <a href="tel:0989425285" className="flex items-center gap-2 bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/50">
               <Phone size={20} />
               Зателефонувати
             </a>
@@ -245,7 +245,10 @@ export default function InteractiveResume() {
 
           <button 
             onClick={() => scrollToSection('education')}
-            className="animate-bounce hover:scale-110 transition-transform"
+            className="hover:scale-110 transition-transform duration-500"
+            style={{
+              animation: 'float 4s ease-in-out infinite'
+            }}
           >
             <ChevronDown size={40} className="text-purple-400" />
           </button>
@@ -268,11 +271,13 @@ export default function InteractiveResume() {
             {education.map((item, idx) => (
               <div 
                 key={idx}
-                className={`animate-on-scroll bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 ${visibleCards.has(idx) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
-                style={{ transitionDelay: `${idx * 100}ms` }}
+                className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20"
+                style={{ 
+                  animation: `slideInLeft 0.8s ease-out ${idx * 0.15}s both`
+                }}
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 transform hover:rotate-12 transition-transform">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 transform hover:rotate-12 transition-transform duration-500">
                     <item.icon size={28} />
                   </div>
                   <div className="flex-1">
@@ -311,17 +316,19 @@ export default function InteractiveResume() {
               {trainings.map((training, idx) => (
                 <div 
                   key={idx}
-                  className={`animate-on-scroll group bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-lg rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl cursor-pointer ${visibleCards.has(idx + 10) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                  style={{ transitionDelay: `${idx * 100}ms` }}
+                  className="group bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-lg rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 transform hover:scale-105 hover:shadow-2xl cursor-pointer"
+                  style={{ 
+                    animation: `slideInLeft 0.8s ease-out ${idx * 0.15}s both`
+                  }}
                 >
                   <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${training.color} flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 group-hover:scale-110 transition-all`}>
+                    <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${training.color} flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500`}>
                       <training.icon size={24} />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-start gap-2 mb-2">
                         <span className="text-purple-400 font-bold">{idx + 1}.</span>
-                        <p className="text-gray-200 leading-relaxed group-hover:text-white transition-colors">{training.title}</p>
+                        <p className="text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">{training.title}</p>
                       </div>
                     </div>
                   </div>
@@ -339,15 +346,17 @@ export default function InteractiveResume() {
               {courses.map((course, idx) => (
                 <div 
                   key={idx}
-                  className={`animate-on-scroll group bg-slate-800/50 backdrop-blur-lg rounded-xl p-5 border border-pink-500/20 hover:border-pink-500/50 transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer ${visibleCards.has(idx + 20) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
-                  style={{ transitionDelay: `${idx * 100}ms` }}
+                  className="group bg-slate-800/50 backdrop-blur-lg rounded-xl p-5 border border-pink-500/20 hover:border-pink-500/50 transition-all duration-700 transform hover:scale-105 hover:shadow-xl cursor-pointer"
+                  style={{ 
+                    animation: `slideInLeft 0.8s ease-out ${idx * 0.15}s both`
+                  }}
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-500">
                       <course.icon size={20} />
                     </div>
                     <div className="flex-1">
-                      <p className="text-gray-200 font-medium group-hover:text-white transition-colors mb-1">{course.title}</p>
+                      <p className="text-gray-200 font-medium group-hover:text-white transition-colors duration-300 mb-1">{course.title}</p>
                       <p className="text-xs text-pink-400 mb-1">{course.org}</p>
                       <div className="flex items-center gap-2 text-xs text-gray-400">
                         {course.duration && (
@@ -390,13 +399,13 @@ export default function InteractiveResume() {
                   <div className="flex justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <skill.icon size={20} className={`text-${skill.color}-400`} />
-                      <span className="text-gray-200 group-hover:text-white transition-colors">{skill.name}</span>
+                      <span className="text-gray-200 group-hover:text-white transition-colors duration-300">{skill.name}</span>
                     </div>
                     <span className="text-purple-400 font-bold">{skill.level}%</span>
                   </div>
                   <div className="w-full bg-slate-700 rounded-full h-3 overflow-hidden">
                     <div 
-                      className={`h-full bg-gradient-to-r from-${skill.color}-500 to-pink-500 rounded-full transition-all duration-1000 transform group-hover:animate-pulse`}
+                      className={`h-full bg-gradient-to-r from-${skill.color}-500 to-pink-500 rounded-full transition-all duration-2000 transform group-hover:animate-pulse`}
                       style={{ width: `${skill.level}%` }}
                     ></div>
                   </div>
@@ -409,9 +418,9 @@ export default function InteractiveResume() {
                 <Briefcase className="text-pink-400" size={28} />
                 Досвід роботи
               </h3>
-              <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 transform hover:scale-105 mb-6">
+              <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 transform hover:scale-105 mb-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 transform hover:rotate-12 transition-transform duration-500">
                     <Briefcase size={28} />
                   </div>
                   <div>
@@ -429,7 +438,7 @@ export default function InteractiveResume() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 transform hover:scale-105">
+              <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 transform hover:scale-105">
                 <div className="flex items-center gap-2 mb-4">
                   <Globe size={24} className="text-purple-400" />
                   <h4 className="text-xl font-semibold text-purple-300">Іноземні мови</h4>
@@ -466,7 +475,7 @@ export default function InteractiveResume() {
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
             <a 
               href="mailto:viktoriia.noskiv@gmail.com"
-              className="group bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/50"
+              className="group bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-8 hover:scale-105 transition-all duration-700 hover:shadow-2xl hover:shadow-purple-500/50"
             >
               <Mail size={40} className="mx-auto mb-4 group-hover:animate-bounce" />
               <h3 className="text-xl font-semibold mb-2">Email</h3>
@@ -475,7 +484,7 @@ export default function InteractiveResume() {
 
             <a 
               href="tel:0989425285"
-              className="group bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/50"
+              className="group bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-8 hover:scale-105 transition-all duration-700 hover:shadow-2xl hover:shadow-pink-500/50"
             >
               <Phone size={40} className="mx-auto mb-4 group-hover:animate-bounce" />
               <h3 className="text-xl font-semibold mb-2">Телефон</h3>
@@ -516,11 +525,20 @@ export default function InteractiveResume() {
           from { transform: translateX(50px); opacity: 0; }
           to { transform: translateX(0); opacity: 1; }
         }
+        @keyframes slideInLeft {
+          from { transform: translateX(-30px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
         @keyframes fade-in {
           from { opacity: 0; transform: scale(0.9); }
           to { opacity: 1; transform: scale(1); }
         }
         .animate-float { animation: float 15s ease-in-out infinite; }
+        .animate-slide-down { animation: slide-down 0.5s ease-out; }
+        .animate-slide-right { animation: slide-right 0.8s ease-out; }
+        .animate-slide-left { animation: slide-left 0.8s ease-out; }
+        .animate-fade-in { animation: fade-in 1s ease-out; }
+      `}</style>
         .animate-slide-down { animation: slide-down 0.3s ease-out; }
         .animate-slide-right { animation: slide-right 0.6s ease-out; }
         .animate-slide-left { animation: slide-left 0.6s ease-out; }
