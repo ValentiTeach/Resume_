@@ -76,6 +76,12 @@ export default function InteractiveResume() {
       institution: "Івано-Франківський медичний фаховий коледж",
       date: "01.06.2012",
       icon: Award
+    },
+    {
+      degree: "Молодший спеціаліст з обслуговування в готелях і туристичних комплексах",
+      institution: "Івано-Франківський фаховий коледж технологій і бізнесу",
+      date: "01.03.2007",
+      icon: Globe
     }
   ];
 
@@ -109,17 +115,7 @@ export default function InteractiveResume() {
       title: "Булінг і Емпатія. Стоп булінг. Протидія булінгу в шкільному середовищі",
       icon: Smile,
       color: "from-green-500 to-emerald-500"
-    },
-      {
-      title: "Альтернатива згубним звичкам. На шляху до вільного і наповненого життя",
-      icon:  Sparkles,
-      color: "from-red-500 to-emerald-500"
-    },
-      {
-      title: "Скажи «Ні» залежності від Інтернету!",
-      icon:  Shield,
-      color: "from-pink-500 to-emerald-500"
-    },
+    }
   ];
 
   const courses = [
@@ -281,7 +277,6 @@ export default function InteractiveResume() {
         .stagger-animation.visible > *:nth-child(5) { animation: slideInUp 0.6s ease-out 0.5s forwards; }
         .stagger-animation.visible > *:nth-child(6) { animation: slideInUp 0.6s ease-out 0.6s forwards; }
         .stagger-animation.visible > *:nth-child(7) { animation: slideInUp 0.6s ease-out 0.7s forwards; }
-        .stagger-animation.visible > *:nth-child(8) { animation: slideInUp 0.6s ease-out 0.8s forwards; }
         
         .parallax {
           transition: transform 0.5s ease-out;
@@ -401,7 +396,7 @@ export default function InteractiveResume() {
           <div className="flex items-center justify-center gap-3 mb-6 animate-slide-in-up" style={{ animationDelay: '0.2s' }}>
             <Heart className="text-pink-400 animate-pulse" size={28} />
             <p className="text-2xl md:text-3xl text-purple-300">
-              Клінічний Психолог/ Консультант в методі Позитивної Психотерапії
+              Психолог | Консультант
             </p>
             <Sparkles className="text-yellow-400 animate-pulse" size={28} />
           </div>
@@ -628,15 +623,42 @@ export default function InteractiveResume() {
                   <Globe size={24} className="text-purple-400" />
                   <h4 className="text-xl font-semibold text-purple-300">Іноземні мови</h4>
                 </div>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 animate-pulse"></div>
-                    <p className="text-gray-200">
-                      <span className="text-purple-400 font-semibold">Англійська:</span> B1+ (Intermediate)
-                    </p>
+                <div className="space-y-4">
+                  <div className="bg-slate-800/50 rounded-xl p-4 border border-purple-500/20">
+                    <div className="flex items-start gap-3 mb-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
+                        <span className="text-sm font-bold">B1+</span>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-gray-200 font-semibold">
+                          <span className="text-blue-400">Англійська:</span> B1+ (Intermediate)
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">Червень 2021 - Жовтень 2021</p>
+                      </div>
+                    </div>
+                    <div className="ml-11">
+                      <p className="text-sm text-gray-400">📚 SmartWay English School</p>
+                      <p className="text-xs text-gray-500">English File від Oxford University Press</p>
+                    </div>
                   </div>
-                  <p className="text-sm text-gray-400 ml-6">📚 SmartWay English School (2019-2021)</p>
-                  <p className="text-xs text-gray-500 ml-6">English File від Oxford University Press</p>
+                  
+                  <div className="bg-slate-800/50 rounded-xl p-4 border border-purple-500/20">
+                    <div className="flex items-start gap-3 mb-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                        <span className="text-sm font-bold">B1</span>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-gray-200 font-semibold">
+                          <span className="text-purple-400">Англійська:</span> B1 (Pre-Intermediate)
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">Жовтень 2019 - Червень 2020</p>
+                      </div>
+                    </div>
+                    <div className="ml-11">
+                      <p className="text-sm text-gray-400">📚 SmartWay English School</p>
+                      <p className="text-xs text-gray-500">English File від Oxford University Press</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
