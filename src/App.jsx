@@ -56,7 +56,7 @@ export default function InteractiveResume() {
     {
       degree: "Магістр клінічної та реабілітаційної психології",
       institution: "Карпатський національний університет ім. Стефаника",
-      date: "26.12.2025",
+      date: "31.12.2025",
       icon: Brain
     },
     {
