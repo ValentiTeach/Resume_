@@ -189,9 +189,25 @@ export default function InteractiveResume() {
           0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
           50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.8); }
         }
-        @keyframes wiggle {
-          0%, 100% { transform: rotate(-3deg); }
-          50% { transform: rotate(3deg); }
+        
+        /* Mobile-friendly touch interactions */
+        @media (max-width: 768px) {
+          * {
+            -webkit-tap-highlight-color: rgba(168, 85, 247, 0.2);
+          }
+          
+          .hover-lift:active {
+            transform: scale(0.98);
+          }
+          
+          .card-3d:active {
+            transform: scale(0.98);
+          }
+        }
+        
+        /* Smooth scrolling for all devices */
+        html {
+          scroll-behavior: smooth;
         }
         
         .floating-icon {
@@ -237,8 +253,10 @@ export default function InteractiveResume() {
           transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
         
-        .card-3d:hover {
-          transform: perspective(1000px) rotateY(5deg) translateY(-10px);
+        @media (min-width: 768px) {
+          .card-3d:hover {
+            transform: perspective(1000px) rotateY(5deg) translateY(-10px);
+          }
         }
         
         .skill-bar {
@@ -261,9 +279,11 @@ export default function InteractiveResume() {
           transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
         
-        .hover-lift:hover {
-          transform: translateY(-12px) scale(1.02);
-          box-shadow: 0 20px 40px rgba(168, 85, 247, 0.4);
+        @media (min-width: 768px) {
+          .hover-lift:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.4);
+          }
         }
         
         .stagger-animation > * {
@@ -284,7 +304,7 @@ export default function InteractiveResume() {
       `}</style>
 
       {/* Animated Background Elements */}
-      <div className="fixed inset-0 pointer-events-none">
+      <div className="fixed inset-0 pointer-events-none hidden sm:block">
         <FloatingIcon Icon={Brain} delay={0} size={60} />
         <FloatingIcon Icon={Heart} delay={1} size={50} />
         <FloatingIcon Icon={Sparkles} delay={2} size={40} />
@@ -295,18 +315,18 @@ export default function InteractiveResume() {
 
       {/* Mouse Follower */}
       <div 
-        className="fixed w-96 h-96 rounded-full bg-purple-500/20 blur-3xl pointer-events-none transition-all duration-500 ease-out"
+        className="fixed w-64 h-64 sm:w-96 sm:h-96 rounded-full bg-purple-500/20 blur-3xl pointer-events-none transition-all duration-500 ease-out hidden sm:block"
         style={{
-          left: mousePosition.x - 192,
-          top: mousePosition.y - 192,
+          left: mousePosition.x - 128,
+          top: mousePosition.y - 128,
         }}
       />
 
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-slate-900/95 backdrop-blur-lg shadow-lg shadow-purple-500/10' : 'bg-transparent'}`}>
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3 group cursor-pointer">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 p-0.5 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+          <div className="flex items-center gap-2 sm:gap-3 group cursor-pointer">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 p-0.5 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 overflow-hidden">
               <img 
                 src="/photo/MainPhoto.jpg" 
                 alt="ВН" 
@@ -316,19 +336,19 @@ export default function InteractiveResume() {
                   e.target.nextSibling.style.display = 'flex';
                 }}
               />
-              <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center font-bold text-xl" style={{ display: 'none' }}>
+              <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center font-bold text-lg sm:text-xl" style={{ display: 'none' }}>
                 ВН
               </div>
             </div>
-            <Brain className="text-purple-400 group-hover:animate-pulse" size={24} />
+            <Brain className="text-purple-400 group-hover:animate-pulse" size={20} />
           </div>
           
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex gap-6 lg:gap-8">
             {['Про мене', 'Освіта', 'Компетентності', 'Навички', 'Контакти'].map((item, idx) => (
               <button
                 key={idx}
                 onClick={() => scrollToSection(['hero', 'education', 'competencies', 'skills', 'contact'][idx])}
-                className="relative hover:text-purple-400 transition-all duration-300 group"
+                className="relative text-sm lg:text-base hover:text-purple-400 transition-all duration-300 group"
               >
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-500"></span>
@@ -337,7 +357,7 @@ export default function InteractiveResume() {
           </div>
 
           <button 
-            className="md:hidden group"
+            className="md:hidden group p-2 hover:bg-purple-500/10 rounded-lg transition-all duration-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? 
@@ -348,17 +368,17 @@ export default function InteractiveResume() {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden bg-slate-900/98 backdrop-blur-lg animate-slide-in-up">
-            <div className="flex flex-col gap-4 px-6 py-4">
+          <div className="md:hidden bg-slate-900/98 backdrop-blur-lg animate-slide-in-up border-t border-purple-500/20">
+            <div className="flex flex-col gap-1 px-4 py-3">
               {['Про мене', 'Освіта', 'Компетентності', 'Навички', 'Контакти'].map((item, idx) => (
                 <button
                   key={idx}
                   onClick={() => scrollToSection(['hero', 'education', 'competencies', 'skills', 'contact'][idx])}
-                  className="text-left hover:text-purple-400 transition-colors duration-300 flex items-center gap-2 hover:translate-x-2"
-                  style={{ animationDelay: `${idx * 0.1}s` }}
+                  className="text-left hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-300 flex items-center gap-2 py-3 px-3 rounded-lg"
+                  style={{ animationDelay: `${idx * 0.05}s` }}
                 >
                   <ChevronDown className="-rotate-90" size={16} />
-                  {item}
+                  <span className="text-base">{item}</span>
                 </button>
               ))}
             </div>
@@ -430,35 +450,35 @@ export default function InteractiveResume() {
       <section 
         id="education" 
         ref={(el) => (sectionRefs.current.education = el)}
-        className="min-h-screen flex items-center px-6 py-20 relative"
+        className="min-h-screen flex items-center px-4 sm:px-6 py-16 sm:py-20 relative"
       >
         <div className="max-w-6xl mx-auto w-full relative z-10">
-          <div className={`flex items-center gap-3 mb-12 ${isVisible('education') ? 'animate-slide-in-right' : 'opacity-0'}`}>
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center hover:rotate-180 transition-transform duration-700">
-              <GraduationCap size={32} />
+          <div className={`flex items-center gap-2 sm:gap-3 mb-8 sm:mb-12 ${isVisible('education') ? 'animate-slide-in-right' : 'opacity-0'}`}>
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center hover:rotate-180 transition-transform duration-700">
+              <GraduationCap size={24} className="sm:w-8 sm:h-8" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               Освіта
             </h2>
           </div>
 
-          <div className={`grid gap-6 stagger-animation ${isVisible('education') ? 'visible' : ''}`}>
+          <div className={`grid gap-4 sm:gap-6 stagger-animation ${isVisible('education') ? 'visible' : ''}`}>
             {education.map((item, idx) => (
               <div 
                 key={idx}
-                className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 hover-lift card-3d"
+                className="bg-slate-800/50 backdrop-blur-lg rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 hover-lift card-3d"
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 hover:rotate-12 hover:scale-110 transition-all duration-500">
-                    <item.icon size={28} />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 hover:rotate-12 hover:scale-110 transition-all duration-500">
+                    <item.icon size={20} className="sm:w-7 sm:h-7" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold mb-2 text-purple-300 flex items-center gap-2">
-                      {item.degree}
-                      <Sparkles size={16} className="text-yellow-400 animate-pulse" />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-xl font-semibold mb-1 sm:mb-2 text-purple-300 flex items-center gap-2 flex-wrap">
+                      <span className="break-words">{item.degree}</span>
+                      <Sparkles size={14} className="sm:w-4 sm:h-4 text-yellow-400 animate-pulse flex-shrink-0" />
                     </h3>
-                    <p className="text-gray-300 mb-1">{item.institution}</p>
-                    <p className="text-sm text-gray-400">{item.date}</p>
+                    <p className="text-sm sm:text-base text-gray-300 mb-1">{item.institution}</p>
+                    <p className="text-xs sm:text-sm text-gray-400">{item.date}</p>
                   </div>
                 </div>
               </div>
@@ -471,38 +491,38 @@ export default function InteractiveResume() {
       <section 
         id="competencies" 
         ref={(el) => (sectionRefs.current.competencies = el)}
-        className="min-h-screen flex items-center px-6 py-20 bg-slate-900/30 relative"
+        className="min-h-screen flex items-center px-4 sm:px-6 py-16 sm:py-20 bg-slate-900/30 relative"
       >
         <div className="max-w-6xl mx-auto w-full relative z-10">
-          <div className={`flex items-center gap-3 mb-12 ${isVisible('competencies') ? 'animate-slide-in-left' : 'opacity-0'}`}>
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center hover:rotate-180 transition-transform duration-700">
-              <Star size={32} />
+          <div className={`flex items-center gap-2 sm:gap-3 mb-8 sm:mb-12 ${isVisible('competencies') ? 'animate-slide-in-left' : 'opacity-0'}`}>
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center hover:rotate-180 transition-transform duration-700">
+              <Star size={24} className="sm:w-8 sm:h-8" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
               Професійні Компетентності
             </h2>
           </div>
 
-          <div className="mb-12">
-            <h3 className={`text-2xl font-semibold mb-6 text-purple-300 flex items-center gap-2 ${isVisible('competencies') ? 'animate-fade-in' : 'opacity-0'}`}>
-              <Target className="text-purple-400" size={28} />
-              Авторські тренінги
+          <div className="mb-8 sm:mb-12">
+            <h3 className={`text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-purple-300 flex items-center gap-2 ${isVisible('competencies') ? 'animate-fade-in' : 'opacity-0'}`}>
+              <Target className="text-purple-400" size={24} />
+              <span>Авторські тренінги</span>
             </h3>
-            <div className={`grid md:grid-cols-2 gap-4 stagger-animation ${isVisible('competencies') ? 'visible' : ''}`}>
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 stagger-animation ${isVisible('competencies') ? 'visible' : ''}`}>
               {trainings.map((training, idx) => (
                 <div 
                   key={idx}
-                  className="group bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-lg rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 hover-lift cursor-pointer relative overflow-hidden"
+                  className="group bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-lg rounded-xl p-4 sm:p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 hover-lift cursor-pointer relative overflow-hidden"
                 >
                   <div className="shimmer-effect absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="flex items-start gap-4 relative z-10">
-                    <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${training.color} flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 group-hover:scale-125 transition-all duration-500`}>
-                      <training.icon size={24} />
+                  <div className="flex items-start gap-3 sm:gap-4 relative z-10">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br ${training.color} flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 group-hover:scale-125 transition-all duration-500`}>
+                      <training.icon size={20} className="sm:w-6 sm:h-6" />
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-start gap-2 mb-2">
-                        <span className="text-purple-400 font-bold">{idx + 1}.</span>
-                        <p className="text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">{training.title}</p>
+                        <span className="text-purple-400 font-bold text-sm sm:text-base">{idx + 1}.</span>
+                        <p className="text-sm sm:text-base text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">{training.title}</p>
                       </div>
                     </div>
                   </div>
@@ -512,24 +532,24 @@ export default function InteractiveResume() {
           </div>
 
           <div>
-            <h3 className={`text-2xl font-semibold mb-6 text-pink-300 flex items-center gap-2 ${isVisible('competencies') ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
-              <BookOpen className="text-pink-400" size={28} />
-              Пройдені курси
+            <h3 className={`text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-pink-300 flex items-center gap-2 ${isVisible('competencies') ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
+              <BookOpen className="text-pink-400" size={24} />
+              <span>Пройдені курси</span>
             </h3>
-            <div className={`grid md:grid-cols-2 gap-4 stagger-animation ${isVisible('competencies') ? 'visible' : ''}`}>
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 stagger-animation ${isVisible('competencies') ? 'visible' : ''}`}>
               {courses.map((course, idx) => (
                 <div 
                   key={idx}
-                  className="group bg-slate-800/50 backdrop-blur-lg rounded-xl p-5 border border-pink-500/20 hover:border-pink-500/50 transition-all duration-700 hover-lift cursor-pointer"
+                  className="group bg-slate-800/50 backdrop-blur-lg rounded-xl p-4 sm:p-5 border border-pink-500/20 hover:border-pink-500/50 transition-all duration-700 hover-lift cursor-pointer"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500">
-                      <course.icon size={20} />
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500">
+                      <course.icon size={16} className="sm:w-5 sm:h-5" />
                     </div>
-                    <div className="flex-1">
-                      <p className="text-gray-200 font-medium group-hover:text-white transition-colors duration-300 mb-1">{course.title}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm sm:text-base text-gray-200 font-medium group-hover:text-white transition-colors duration-300 mb-1">{course.title}</p>
                       <p className="text-xs text-pink-400 mb-1">{course.org}</p>
-                      <div className="flex items-center gap-2 text-xs text-gray-400">
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
                         {course.duration && (
                           <>
                             <span>⏱️ {course.duration}</span>
@@ -551,34 +571,34 @@ export default function InteractiveResume() {
       <section 
         id="skills" 
         ref={(el) => (sectionRefs.current.skills = el)}
-        className="min-h-screen flex items-center px-6 py-20 relative"
+        className="min-h-screen flex items-center px-4 sm:px-6 py-16 sm:py-20 relative"
       >
         <div className="max-w-6xl mx-auto w-full relative z-10">
-          <div className={`flex items-center gap-3 mb-12 ${isVisible('skills') ? 'animate-slide-in-right' : 'opacity-0'}`}>
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center hover:rotate-180 transition-transform duration-700">
-              <TrendingUp size={32} />
+          <div className={`flex items-center gap-2 sm:gap-3 mb-8 sm:mb-12 ${isVisible('skills') ? 'animate-slide-in-right' : 'opacity-0'}`}>
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center hover:rotate-180 transition-transform duration-700">
+              <TrendingUp size={24} className="sm:w-8 sm:h-8" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               Навички та Досвід
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
             <div className={isVisible('skills') ? 'animate-slide-in-left' : 'opacity-0'}>
-              <h3 className="text-2xl font-semibold mb-6 text-purple-300 flex items-center gap-2">
-                <Brain className="text-purple-400 animate-pulse" size={28} />
-                Ключові навички
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-purple-300 flex items-center gap-2">
+                <Brain className="text-purple-400 animate-pulse" size={24} />
+                <span>Ключові навички</span>
               </h3>
               {skills.map((skill, idx) => (
-                <div key={idx} className="mb-6 group">
+                <div key={idx} className="mb-5 sm:mb-6 group">
                   <div className="flex justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <skill.icon size={20} className={`text-${skill.color}-400 group-hover:animate-bounce`} />
-                      <span className="text-gray-200 group-hover:text-white transition-colors duration-300">{skill.name}</span>
+                      <skill.icon size={18} className={`sm:w-5 sm:h-5 text-${skill.color}-400 group-hover:animate-bounce`} />
+                      <span className="text-sm sm:text-base text-gray-200 group-hover:text-white transition-colors duration-300">{skill.name}</span>
                     </div>
-                    <span className="text-purple-400 font-bold">{skill.level}%</span>
+                    <span className="text-sm sm:text-base text-purple-400 font-bold">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-slate-700 rounded-full h-3 overflow-hidden">
+                  <div className="w-full bg-slate-700 rounded-full h-2 sm:h-3 overflow-hidden">
                     <div 
                       className={`h-full bg-gradient-to-r from-${skill.color}-500 to-pink-500 rounded-full transition-all duration-2000 skill-bar`}
                       style={{ 
@@ -591,71 +611,71 @@ export default function InteractiveResume() {
               ))}
             </div>
 
-            <div className={`space-y-6 ${isVisible('skills') ? 'animate-slide-in-right' : 'opacity-0'}`}>
+            <div className={`space-y-4 sm:space-y-6 ${isVisible('skills') ? 'animate-slide-in-right' : 'opacity-0'}`}>
               <div>
-                <h3 className="text-2xl font-semibold mb-6 text-pink-300 flex items-center gap-2">
-                  <Briefcase className="text-pink-400" size={28} />
-                  Досвід роботи
+                <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-pink-300 flex items-center gap-2">
+                  <Briefcase className="text-pink-400" size={24} />
+                  <span>Досвід роботи</span>
                 </h3>
-                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 hover-lift">
-                  <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 hover:rotate-12 hover:scale-110 transition-all duration-500">
-                      <Briefcase size={28} />
+                <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 hover-lift">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 hover:rotate-12 hover:scale-110 transition-all duration-500">
+                      <Briefcase size={20} className="sm:w-7 sm:h-7" />
                     </div>
-                    <div>
-                      <h4 className="text-xl font-semibold mb-2 text-purple-300 flex items-center gap-2">
-                        Медична сестра
-                        <CheckCircle2 size={20} className="text-green-400" />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2 text-purple-300 flex items-center gap-2 flex-wrap">
+                        <span>Медична сестра</span>
+                        <CheckCircle2 size={16} className="sm:w-5 sm:h-5 text-green-400 flex-shrink-0" />
                       </h4>
-                      <p className="text-gray-300 mb-2">КНП ОКЛ ІФ ОР</p>
-                      <p className="text-sm text-gray-400 mb-3">01.08.2012 – Грудень 2025</p>
+                      <p className="text-sm sm:text-base text-gray-300 mb-1 sm:mb-2">КНП ОКЛ ІФ ОР</p>
+                      <p className="text-xs sm:text-sm text-gray-400 mb-2 sm:mb-3">01.08.2012 – Грудень 2025</p>
                       <div className="flex items-center gap-2 text-purple-400">
-                        <Star size={16} />
-                        <p className="text-sm">13+ років досвіду в медичній сфері</p>
+                        <Star size={14} className="sm:w-4 sm:h-4 flex-shrink-0" />
+                        <p className="text-xs sm:text-sm">13+ років досвіду в медичній сфері</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 hover-lift">
-                <div className="flex items-center gap-2 mb-4">
-                  <Globe size={24} className="text-purple-400" />
-                  <h4 className="text-xl font-semibold text-purple-300">Іноземні мови</h4>
+              <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-700 hover-lift">
+                <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                  <Globe size={20} className="sm:w-6 sm:h-6 text-purple-400" />
+                  <h4 className="text-lg sm:text-xl font-semibold text-purple-300">Іноземні мови</h4>
                 </div>
-                <div className="space-y-4">
-                  <div className="bg-slate-800/50 rounded-xl p-4 border border-purple-500/20">
-                    <div className="flex items-start gap-3 mb-2">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm font-bold">B1+</span>
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="bg-slate-800/50 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-purple-500/20">
+                    <div className="flex items-start gap-2 sm:gap-3 mb-2">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
+                        <span className="text-xs sm:text-sm font-bold">B1+</span>
                       </div>
-                      <div className="flex-1">
-                        <p className="text-gray-200 font-semibold">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm sm:text-base text-gray-200 font-semibold">
                           <span className="text-blue-400">Англійська:</span> B1+ (Intermediate)
                         </p>
                         <p className="text-xs text-gray-400 mt-1">Червень 2021 - Жовтень 2021</p>
                       </div>
                     </div>
-                    <div className="ml-11">
-                      <p className="text-sm text-gray-400">📚 SmartWay English School</p>
+                    <div className="ml-9 sm:ml-11">
+                      <p className="text-xs sm:text-sm text-gray-400">📚 SmartWay English School</p>
                       <p className="text-xs text-gray-500">English File від Oxford University Press</p>
                     </div>
                   </div>
                   
-                  <div className="bg-slate-800/50 rounded-xl p-4 border border-purple-500/20">
-                    <div className="flex items-start gap-3 mb-2">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm font-bold">B1</span>
+                  <div className="bg-slate-800/50 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-purple-500/20">
+                    <div className="flex items-start gap-2 sm:gap-3 mb-2">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                        <span className="text-xs sm:text-sm font-bold">B1</span>
                       </div>
-                      <div className="flex-1">
-                        <p className="text-gray-200 font-semibold">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm sm:text-base text-gray-200 font-semibold">
                           <span className="text-purple-400">Англійська:</span> B1 (Pre-Intermediate)
                         </p>
                         <p className="text-xs text-gray-400 mt-1">Жовтень 2019 - Червень 2020</p>
                       </div>
                     </div>
-                    <div className="ml-11">
-                      <p className="text-sm text-gray-400">📚 SmartWay English School</p>
+                    <div className="ml-9 sm:ml-11">
+                      <p className="text-xs sm:text-sm text-gray-400">📚 SmartWay English School</p>
                       <p className="text-xs text-gray-500">English File від Oxford University Press</p>
                     </div>
                   </div>
@@ -670,49 +690,49 @@ export default function InteractiveResume() {
       <section 
         id="contact" 
         ref={(el) => (sectionRefs.current.contact = el)}
-        className="min-h-screen flex items-center px-6 py-20 bg-slate-900/30 relative"
+        className="min-h-screen flex items-center px-4 sm:px-6 py-16 sm:py-20 bg-slate-900/30 relative"
       >
         <div className="max-w-4xl mx-auto w-full text-center relative z-10">
-          <div className={`mb-8 ${isVisible('contact') ? 'animate-scale-in' : 'opacity-0'}`}>
-            <MessageCircle size={60} className="mx-auto text-purple-400 mb-4 floating-icon" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <div className={`mb-6 sm:mb-8 ${isVisible('contact') ? 'animate-scale-in' : 'opacity-0'}`}>
+            <MessageCircle size={48} className="sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto text-purple-400 mb-3 sm:mb-4 floating-icon" />
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent px-2">
               Зв'яжіться зі мною
             </h2>
-            <p className="text-xl text-gray-300">
+            <p className="text-base sm:text-xl text-gray-300 px-4">
               Готова відповісти на ваші запитання та обговорити можливості співпраці
             </p>
           </div>
 
-          <div className={`grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8 ${isVisible('contact') ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
+          <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto mb-6 sm:mb-8 px-2 ${isVisible('contact') ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
             <a 
               href="mailto:viktoriia.noskiv@gmail.com"
-              className="group bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-8 hover:scale-110 transition-all duration-700 hover:shadow-2xl hover:shadow-purple-500/50 card-3d"
+              className="group bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl sm:rounded-2xl p-6 sm:p-8 hover:scale-105 sm:hover:scale-110 transition-all duration-700 hover:shadow-2xl hover:shadow-purple-500/50 card-3d"
             >
-              <Mail size={40} className="mx-auto mb-4 group-hover:animate-bounce" />
-              <h3 className="text-xl font-semibold mb-2">Email</h3>
-              <p className="text-sm text-purple-200 break-all">viktoriia.noskiv@gmail.com</p>
+              <Mail size={32} className="sm:w-10 sm:h-10 mx-auto mb-3 sm:mb-4 group-hover:animate-bounce" />
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">Email</h3>
+              <p className="text-xs sm:text-sm text-purple-200 break-all px-2">viktoriia.noskiv@gmail.com</p>
             </a>
 
             <a 
               href="tel:0989425285"
-              className="group bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-8 hover:scale-110 transition-all duration-700 hover:shadow-2xl hover:shadow-pink-500/50 card-3d"
+              className="group bg-gradient-to-br from-pink-600 to-pink-800 rounded-xl sm:rounded-2xl p-6 sm:p-8 hover:scale-105 sm:hover:scale-110 transition-all duration-700 hover:shadow-2xl hover:shadow-pink-500/50 card-3d"
             >
-              <Phone size={40} className="mx-auto mb-4 group-hover:animate-bounce" />
-              <h3 className="text-xl font-semibold mb-2">Телефон</h3>
+              <Phone size={32} className="sm:w-10 sm:h-10 mx-auto mb-3 sm:mb-4 group-hover:animate-bounce" />
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">Телефон</h3>
               <p className="text-sm text-pink-200">098 942 52 85</p>
             </a>
           </div>
 
-          <div className={`flex justify-center gap-4 mb-8 ${isVisible('contact') ? 'animate-slide-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.4s' }}>
-            <Heart className="text-pink-400 animate-pulse" size={24} />
-            <Brain className="text-purple-400 animate-pulse" size={24} />
-            <Sparkles className="text-yellow-400 animate-pulse" size={24} />
+          <div className={`flex justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 ${isVisible('contact') ? 'animate-slide-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.4s' }}>
+            <Heart className="text-pink-400 animate-pulse" size={20} />
+            <Brain className="text-purple-400 animate-pulse" size={20} />
+            <Sparkles className="text-yellow-400 animate-pulse" size={20} />
           </div>
 
-          <div className={`text-gray-400 ${isVisible('contact') ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.6s' }}>
-            <p className="flex items-center justify-center gap-2">
+          <div className={`text-gray-400 text-sm sm:text-base px-4 ${isVisible('contact') ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.6s' }}>
+            <p className="flex items-center justify-center gap-2 flex-wrap">
               <span>© 2025 Вікторія Носків</span>
-              <Smile size={16} className="text-purple-400" />
+              <Smile size={14} className="sm:w-4 sm:h-4 text-purple-400 flex-shrink-0" />
               <span>Всі права захищені</span>
             </p>
           </div>
